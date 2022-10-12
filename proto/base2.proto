@@ -1,0 +1,16 @@
+syntax = "proto3";
+package pb;
+
+// protoc  --go_out=plugins=grpc:.  --go_out=. base2.proto
+option go_package ="./pb";
+
+message protoBase2 {
+    string  code   = 1;  // 代码
+    int64   time   = 2;  // 时间 202005011020
+    double  open   = 3;  // 开盘价
+    double  close  = 4;  // 收盘价
+    double  high   = 5;  // 最高价
+    double  low    = 6;  // 最低价
+    double  volume = 7;  // 成交量
+    double  amount = 8;  // 成交额(￥)
+}

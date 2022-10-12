@@ -1,0 +1,25 @@
+syntax = "proto3";
+package pb;
+
+// go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+// go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+// protoc --go-grpc_out=. regedit.proto
+// protoc --go_out=. regedit.proto
+// protoc --go-grpc_out=require_unimplemented_servers=false:. regedit.proto
+
+option go_package ="./pb";
+
+// 注册请求
+message RegEditRQ {
+  int32  port = 1; // 监听端口 
+	bool   open = 2; // 是否开放服务
+}
+
+// 注册应答
+message RegEditRS {
+	map<string, int32> endpoints = 1; // 所有的服务
+}
+
+service Regedit {
+	rpc EndPointRegedit(RegEditRQ) returns (RegEditRS) {}
+}
