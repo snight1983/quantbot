@@ -20,9 +20,13 @@ type ConfigAll struct {
 	IsSinaHestory bool     `json:"issinahestory"`
 	IsTXHestory   bool     `json:"istxhestory"`
 	IsRealTime    bool     `json:"isrealtime"`
+	HsStart       int      `json:"hsstart"`
 	CNTS          []int32  `json:"cnts"`
 	LocalDBStore  bool     `json:"localdbstore"`
 	LocalDB       []string `json:"localdb"`
+	FullBFQ       string   `json:"fullbfq"`
+	FullQFQ       string   `json:"fullqfq"`
+	FullHFQ       string   `json:"fullhfq"`
 }
 
 func init() {

@@ -100,6 +100,7 @@ func (obj *SinaHistory) onGetHestoryItem(code string, item SinaHtItem) (*storedb
 	if stockItem.Volume <= 0 || stockItem.Amount <= 0 {
 		return nil, err
 	}
+	stockItem.Volume /= 100
 	stockItem.OpenFr = StockSina
 	stockItem.CloseFr = StockSina
 	stockItem.MaxFr = StockSina
@@ -144,7 +145,7 @@ func (obj *SinaHistory) onGetHestory() {
 		for {
 			if utils.Conf.IsSinaHestory {
 				_, _, _, hour, _ := utils.GetTimeMin5()
-				if hour >= 18 {
+				if hour >= utils.Conf.HsStart {
 					listStocks := []string{}
 					shMapLock.RLock()
 					for k := range shMap {

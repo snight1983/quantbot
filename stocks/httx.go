@@ -159,9 +159,9 @@ func (obj *TXHistory) onGetHestory() {
 	bfqurl := "https://ifzq.gtimg.cn/appstock/app/kline/mkline?param=%s,m5,,480"
 	go func() {
 		for {
-			if utils.Conf.IsSinaHestory {
+			if utils.Conf.IsTXHestory {
 				_, _, _, hour, _ := utils.GetTimeMin5()
-				if hour >= 18 {
+				if hour >= utils.Conf.HsStart {
 					listStocks := []string{}
 					shMapLock.RLock()
 					for k := range shMap {
