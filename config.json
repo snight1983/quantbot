@@ -5,22 +5,26 @@
   "centerPort":"18899",
   "stockRoot":"E:\\stocks",
   "regserver":"127.0.0.1:18899",
-  "localdb":["E:\\stocks\\BFQ-FULL.DB|E:\\stocksbak\\stocks1012\\stockall\\bfq",
-             "E:\\stocks\\QFQ-FULL.DB|E:\\stocksbak\\stocks1012\\stockall\\qfq",
-             "E:\\stocks\\HFQ-FULL.DB|E:\\stocksbak\\stocks1012\\stockall\\hfq"],
-  "localdbstore":false,
+  "localdb":[
+    "E:\\stocks\\HFQ-FULL.DB|E:\\stocksbak\\stockall0926\\stockall\\hfq",
+    "E:\\stocks\\QFQ-FULL.DB|E:\\stocksbak\\stockall0926\\stockall\\qfq",
+    "E:\\stocks\\BFQ-FULL.DB|E:\\stocksbak\\stockall0926\\stockall\\bfq"],
   "fullbfq":"E:\\stocks\\BFQ-FULL.DB",
   "fullqfq":"E:\\stocks\\QFQ-FULL.DB",
   "fullhfq":"E:\\stocks\\HFQ-FULL.DB",
+
   "cnts":[
     935,940,945,950,955,
     1000,1005,1010,1015,1020,1025,1030,1035,1040,1045,1050,1055,
     1100,1105,1110,1115,1120,1125,1130,
     1305,1310,1315,1320,1325,1330,1335,1340,1345,1350,1355,
     1400,1405,1410,1415,1420,1425,1430,1435,1440,1445,1450,1455,1500],
-  "isemhestory":true,
+
+  "isemhestory":false,
   "issinahestory":false,
   "istxhestory":false,
   "isrealtime":false,
-  "hsstart":10
+  "localdbstore":true,
+  "hsstart":20,
+  "waitsec":2
 }

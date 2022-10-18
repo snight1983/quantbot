@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"quantbot/utils"
+	"runtime"
 	"strconv"
 	"strings"
 	"sync/atomic"
@@ -24,8 +25,7 @@ type TableInfo struct {
 }
 
 var (
-	basePath string
-	cntSum   int32
+	cntSum int32
 
 	//stocksFullDBQFQ *sql.DB
 	//stocksFullDBHFQ *sql.DB
@@ -84,7 +84,8 @@ func getStockDB(dbinfo, tableName string) (*sql.DB, error) {
 			 "Min" DOUBLE,
 			 "Volume" DOUBLE,
 			 "Amount" DOUBLE,
-			 "Code" VARCHAR(10)
+			 "Code" VARCHAR(10),
+			 "Statistics" BLOB
 		);`
 		sqltable := fmt.Sprintf(sql_table, tableName)
 		_, err := db.Exec(sqltable)
@@ -101,6 +102,7 @@ func InsertManyLocal(dbinfo, tableName string, items []*TsItem) error {
 	if nil != err {
 		return err
 	}
+	defer db.Close()
 	ts, err := db.Begin()
 	if nil != err {
 		return err
@@ -211,11 +213,16 @@ func LoadStocksCsv(dbinfo, path, code string) error {
 				continue
 			}
 			if stockItem.Volume <= 0 {
-				utils.Logger.Warn("LoadStocksCsv", zap.Int32("Volume", 0))
-				continue
+				if stockItem.Open == stockItem.Close &&
+					stockItem.Open == stockItem.Max &&
+					stockItem.Open == stockItem.Min {
+					continue
+				} else {
+					utils.Logger.Info("LoadStocksCsv no Volume")
+				}
 			}
 			atomic.AddInt32(&cntSum, 1)
-			if cntSum%1000 == 0 {
+			if cntSum%10000 == 0 {
 				fmt.Println("total cnt:", dbinfo, cntSum)
 			}
 			items = append(items, stockItem)
@@ -236,6 +243,7 @@ func LocalCsvStore(dbinfo, csvFolder string) {
 				nList = strings.Split(nList[1], "_")
 				if len(nList) == 2 {
 					LoadStocksCsv(dbinfo, fname, nList[0])
+					runtime.GC()
 				}
 			}
 		}

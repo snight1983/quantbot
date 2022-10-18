@@ -116,7 +116,7 @@ func (obj *TXHistory) onGetHestoryItem(code string, item []interface{}) (*stored
 
 func (obj *TXHistory) hestory(url, db string, stocks []string) {
 	for _, v := range stocks {
-		time.Sleep(time.Duration(2000) * time.Millisecond)
+		time.Sleep(time.Duration(utils.Conf.WaitSec) * time.Second)
 		tsItemList := []*storedb.TsItem{}
 		url := fmt.Sprintf(url, v)
 		buf, err := utils.GetWithJSON(url, GHEADERS, nil)

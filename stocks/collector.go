@@ -191,7 +191,7 @@ func onLocalStore() {
 }
 
 func StartCollect() {
-	//onLocalStore()
+	onLocalStore()
 	GHEADERS = map[string]string{}
 	GHEADERS["Accept-Language"] = "zh-CN,zh;q=0.9"
 	GHEADERS["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
@@ -221,7 +221,7 @@ func StartCollect() {
 	sinahs.onGetHestory()
 	txhs.onGetHestory()
 
-	onBFQFusion()
+	//onBFQFusion()
 
 	go func() {
 		for {

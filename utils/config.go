@@ -21,6 +21,7 @@ type ConfigAll struct {
 	IsTXHestory   bool     `json:"istxhestory"`
 	IsRealTime    bool     `json:"isrealtime"`
 	HsStart       int      `json:"hsstart"`
+	WaitSec       int      `json:"waitsec"`
 	CNTS          []int32  `json:"cnts"`
 	LocalDBStore  bool     `json:"localdbstore"`
 	LocalDB       []string `json:"localdb"`

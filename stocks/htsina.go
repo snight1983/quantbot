@@ -113,7 +113,7 @@ func (obj *SinaHistory) onGetHestoryItem(code string, item SinaHtItem) (*storedb
 
 func (obj *SinaHistory) hestory(url, db string, stocks []string) {
 	for _, v := range stocks {
-		time.Sleep(time.Duration(2) * time.Second)
+		time.Sleep(time.Duration(utils.Conf.WaitSec) * time.Second)
 		tsItemList := []*storedb.TsItem{}
 		url := fmt.Sprintf(url, v)
 		buf, err := utils.GetWithJSON(url, GHEADERS, nil)

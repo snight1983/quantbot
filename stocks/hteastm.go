@@ -20,7 +20,8 @@ import (
 // https://push2his.eastmoney.com/api/qt/stock/kline/get?fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&ut=7eea3edcaed734bea9cbfc24409ed989&klt=5&fqt=1&secid=1.000001&beg=0&end=20500000&_=1630930917857
 
 type EastMoneyHistory struct {
-	wg sync.WaitGroup
+	wg     sync.WaitGroup
+	lastTS int64
 }
 
 type EmHistoryRS struct {
@@ -129,7 +130,7 @@ func (obj *EastMoneyHistory) onGetHestoryItem(code, item string) (*storedb.TsIte
 func (obj *EastMoneyHistory) hestory(url, db string, stocks []string, beg, end int) {
 	defer obj.wg.Done()
 	for _, v := range stocks {
-		time.Sleep(time.Duration(2) * time.Second)
+		time.Sleep(time.Duration(utils.Conf.WaitSec) * time.Second)
 		tsItemList := []*storedb.TsItem{}
 		url := fmt.Sprintf(url, v, beg, end, time.Now().UnixMilli())
 		buf, err := utils.GetWithJSON(url, GHEADERS, nil)
